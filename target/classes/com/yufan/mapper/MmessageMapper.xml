@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yufan.dao.MmessageMapper">
+  <resultMap id="BaseResultMap" type="com.yufan.entity.Mmessage">
+    <id column="k_mid" jdbcType="INTEGER" property="kMid" />
+    <result column="k_mname" jdbcType="VARCHAR" property="kMname" />
+    <result column="k_mdate" jdbcType="DATE" property="kMdate" />
+    <result column="k_mdeatail" jdbcType="VARCHAR" property="kMdeatail" />
+    <result column="k_uid" jdbcType="INTEGER" property="kUid" />
+    <result column="k_croid" jdbcType="INTEGER" property="kCroid" />
+    <result column="k_mjuridiction" jdbcType="TINYINT" property="kMjuridiction" />
+ 	<result column="k_mtype" jdbcType="TINYINT" property="kMtype"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    k_mid, k_mname, k_mdate, k_mdeatail, k_uid, k_croid, k_mjuridiction,k_mtype
+  </sql>
+  <select id="selectMessageByCidAndMtype" resultMap="BaseResultMap">
+   select 
+    <include refid="Base_Column_List" />
+    from message
+    where k_uid = #{kUid} and k_mtype = #{ kMtype }
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from message
+    where k_mid = #{kMid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from message
+    where k_mid = #{kMid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yufan.entity.Mmessage">
+    insert into message (k_mid, k_mname, k_mdate, 
+      k_mdeatail, k_uid, k_croid, 
+      k_mjuridiction)
+    values (#{kMid,jdbcType=INTEGER}, #{kMname,jdbcType=VARCHAR}, #{kMdate,jdbcType=DATE}, 
+      #{kMdeatail,jdbcType=VARCHAR}, #{kUid,jdbcType=INTEGER}, #{kCroid,jdbcType=INTEGER}, 
+      #{kMjuridiction,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yufan.entity.Mmessage">
+    insert into message
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="kMid != null">
+        k_mid,
+      </if>
+      <if test="kMname != null">
+        k_mname,
+      </if>
+      <if test="kMdate != null">
+        k_mdate,
+      </if>
+      <if test="kMdeatail != null">
+        k_mdeatail,
+      </if>
+      <if test="kUid != null">
+        k_uid,
+      </if>
+      <if test="kCroid != null">
+        k_croid,
+      </if>
+      <if test="kMjuridiction != null">
+        k_mjuridiction,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="kMid != null">
+        #{kMid,jdbcType=INTEGER},
+      </if>
+      <if test="kMname != null">
+        #{kMname,jdbcType=VARCHAR},
+      </if>
+      <if test="kMdate != null">
+        #{kMdate,jdbcType=DATE},
+      </if>
+      <if test="kMdeatail != null">
+        #{kMdeatail,jdbcType=VARCHAR},
+      </if>
+      <if test="kUid != null">
+        #{kUid,jdbcType=INTEGER},
+      </if>
+      <if test="kCroid != null">
+        #{kCroid,jdbcType=INTEGER},
+      </if>
+      <if test="kMjuridiction != null">
+        #{kMjuridiction,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yufan.entity.Mmessage">
+    update message
+    <set>
+      <if test="kMname != null">
+        k_mname = #{kMname,jdbcType=VARCHAR},
+      </if>
+      <if test="kMdate != null">
+        k_mdate = #{kMdate,jdbcType=DATE},
+      </if>
+      <if test="kMdeatail != null">
+        k_mdeatail = #{kMdeatail,jdbcType=VARCHAR},
+      </if>
+      <if test="kUid != null">
+        k_uid = #{kUid,jdbcType=INTEGER},
+      </if>
+      <if test="kCroid != null">
+        k_croid = #{kCroid,jdbcType=INTEGER},
+      </if>
+      <if test="kMjuridiction != null">
+        k_mjuridiction = #{kMjuridiction,jdbcType=TINYINT},
+      </if>
+    </set>
+    where k_mid = #{kMid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yufan.entity.Mmessage">
+    update message
+    set k_mname = #{kMname,jdbcType=VARCHAR},
+      k_mdate = #{kMdate,jdbcType=DATE},
+      k_mdeatail = #{kMdeatail,jdbcType=VARCHAR},
+      k_uid = #{kUid,jdbcType=INTEGER},
+      k_croid = #{kCroid,jdbcType=INTEGER},
+      k_mjuridiction = #{kMjuridiction,jdbcType=TINYINT}
+    where k_mid = #{kMid,jdbcType=INTEGER}
+  </update>
+</mapper>

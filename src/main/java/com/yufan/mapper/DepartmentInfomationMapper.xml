@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yufan.dao.DepartmentInfomationMapper">
+  <resultMap id="BaseResultMap" type="com.yufan.entity.DepartmentInfomation">
+    <id column="k_did" jdbcType="INTEGER" property="kDid" />
+    <result column="k_dname" jdbcType="VARCHAR" property="kDname" />
+    <result column="k_sid" jdbcType="INTEGER" property="kSid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    k_did, k_dname, k_sid
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from department_infomation
+    where k_did = #{kDid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from department_infomation
+    where k_did = #{kDid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yufan.entity.DepartmentInfomation">
+    insert into department_infomation (k_did, k_dname, k_sid
+      )
+    values (#{kDid,jdbcType=INTEGER}, #{kDname,jdbcType=VARCHAR}, #{kSid,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yufan.entity.DepartmentInfomation">
+    insert into department_infomation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="kDid != null">
+        k_did,
+      </if>
+      <if test="kDname != null">
+        k_dname,
+      </if>
+      <if test="kSid != null">
+        k_sid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="kDid != null">
+        #{kDid,jdbcType=INTEGER},
+      </if>
+      <if test="kDname != null">
+        #{kDname,jdbcType=VARCHAR},
+      </if>
+      <if test="kSid != null">
+        #{kSid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yufan.entity.DepartmentInfomation">
+    update department_infomation
+    <set>
+      <if test="kDname != null">
+        k_dname = #{kDname,jdbcType=VARCHAR},
+      </if>
+      <if test="kSid != null">
+        k_sid = #{kSid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where k_did = #{kDid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yufan.entity.DepartmentInfomation">
+    update department_infomation
+    set k_dname = #{kDname,jdbcType=VARCHAR},
+      k_sid = #{kSid,jdbcType=INTEGER}
+    where k_did = #{kDid,jdbcType=INTEGER}
+  </update>
+</mapper>

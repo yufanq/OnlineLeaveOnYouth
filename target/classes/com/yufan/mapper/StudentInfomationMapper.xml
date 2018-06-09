@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yufan.dao.StudentInfomationMapper">
+  <resultMap id="BaseResultMap" type="com.yufan.entity.StudentInfomation">
+    <id column="k_stuid" jdbcType="INTEGER" property="kStuid" />
+    <result column="k_mid" jdbcType="INTEGER" property="kMid" />
+    <result column="k_grade" jdbcType="INTEGER" property="kGrade" />
+    <result column="k_did" jdbcType="INTEGER" property="kDid" />
+    <result column="k_cname" jdbcType="VARCHAR" property="kCname" />
+    <result column="k_uid" jdbcType="INTEGER" property="kUid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    k_stuid, k_mid, k_grade, k_did, k_cname, k_uid
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from student_infomation
+    where k_stuid = #{kStuid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from student_infomation
+    where k_stuid = #{kStuid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yufan.entity.StudentInfomation">
+    insert into student_infomation (k_stuid, k_mid, k_grade, 
+      k_did, k_cname, k_uid)
+    values (#{kStuid,jdbcType=INTEGER}, #{kMid,jdbcType=INTEGER}, #{kGrade,jdbcType=INTEGER}, 
+      #{kDid,jdbcType=INTEGER}, #{kCname,jdbcType=VARCHAR}, #{kUid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yufan.entity.StudentInfomation">
+    insert into student_infomation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="kStuid != null">
+        k_stuid,
+      </if>
+      <if test="kMid != null">
+        k_mid,
+      </if>
+      <if test="kGrade != null">
+        k_grade,
+      </if>
+      <if test="kDid != null">
+        k_did,
+      </if>
+      <if test="kCname != null">
+        k_cname,
+      </if>
+      <if test="kUid != null">
+        k_uid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="kStuid != null">
+        #{kStuid,jdbcType=INTEGER},
+      </if>
+      <if test="kMid != null">
+        #{kMid,jdbcType=INTEGER},
+      </if>
+      <if test="kGrade != null">
+        #{kGrade,jdbcType=INTEGER},
+      </if>
+      <if test="kDid != null">
+        #{kDid,jdbcType=INTEGER},
+      </if>
+      <if test="kCname != null">
+        #{kCname,jdbcType=VARCHAR},
+      </if>
+      <if test="kUid != null">
+        #{kUid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yufan.entity.StudentInfomation">
+    update student_infomation
+    <set>
+      <if test="kMid != null">
+        k_mid = #{kMid,jdbcType=INTEGER},
+      </if>
+      <if test="kGrade != null">
+        k_grade = #{kGrade,jdbcType=INTEGER},
+      </if>
+      <if test="kDid != null">
+        k_did = #{kDid,jdbcType=INTEGER},
+      </if>
+      <if test="kCname != null">
+        k_cname = #{kCname,jdbcType=VARCHAR},
+      </if>
+      <if test="kUid != null">
+        k_uid = #{kUid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where k_stuid = #{kStuid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yufan.entity.StudentInfomation">
+    update student_infomation
+    set k_mid = #{kMid,jdbcType=INTEGER},
+      k_grade = #{kGrade,jdbcType=INTEGER},
+      k_did = #{kDid,jdbcType=INTEGER},
+      k_cname = #{kCname,jdbcType=VARCHAR},
+      k_uid = #{kUid,jdbcType=INTEGER}
+    where k_stuid = #{kStuid,jdbcType=INTEGER}
+  </update>
+</mapper>

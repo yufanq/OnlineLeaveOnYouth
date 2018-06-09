@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yufan.dao.PictureDetailMapper">
+  <resultMap id="BaseResultMap" type="com.yufan.entity.PictureDetail">
+    <id column="k_pid" jdbcType="INTEGER" property="kPid" />
+    <result column="k_paddress" jdbcType="VARCHAR" property="kPaddress" />
+    <result column="k_pdate" jdbcType="DATE" property="kPdate" />
+    <result column="k_uid" jdbcType="INTEGER" property="kUid" />
+    <result column="k_mid" jdbcType="INTEGER" property="kMid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    k_pid, k_paddress, k_pdate, k_uid, k_mid
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from picture_detail
+    where k_pid = #{kPid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from picture_detail
+    where k_pid = #{kPid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yufan.entity.PictureDetail">
+    insert into picture_detail (k_pid, k_paddress, k_pdate, 
+      k_uid, k_mid)
+    values (#{kPid,jdbcType=INTEGER}, #{kPaddress,jdbcType=VARCHAR}, #{kPdate,jdbcType=DATE}, 
+      #{kUid,jdbcType=INTEGER}, #{kMid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yufan.entity.PictureDetail">
+    insert into picture_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="kPid != null">
+        k_pid,
+      </if>
+      <if test="kPaddress != null">
+        k_paddress,
+      </if>
+      <if test="kPdate != null">
+        k_pdate,
+      </if>
+      <if test="kUid != null">
+        k_uid,
+      </if>
+      <if test="kMid != null">
+        k_mid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="kPid != null">
+        #{kPid,jdbcType=INTEGER},
+      </if>
+      <if test="kPaddress != null">
+        #{kPaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="kPdate != null">
+        #{kPdate,jdbcType=DATE},
+      </if>
+      <if test="kUid != null">
+        #{kUid,jdbcType=INTEGER},
+      </if>
+      <if test="kMid != null">
+        #{kMid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yufan.entity.PictureDetail">
+    update picture_detail
+    <set>
+      <if test="kPaddress != null">
+        k_paddress = #{kPaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="kPdate != null">
+        k_pdate = #{kPdate,jdbcType=DATE},
+      </if>
+      <if test="kUid != null">
+        k_uid = #{kUid,jdbcType=INTEGER},
+      </if>
+      <if test="kMid != null">
+        k_mid = #{kMid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where k_pid = #{kPid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yufan.entity.PictureDetail">
+    update picture_detail
+    set k_paddress = #{kPaddress,jdbcType=VARCHAR},
+      k_pdate = #{kPdate,jdbcType=DATE},
+      k_uid = #{kUid,jdbcType=INTEGER},
+      k_mid = #{kMid,jdbcType=INTEGER}
+    where k_pid = #{kPid,jdbcType=INTEGER}
+  </update>
+</mapper>

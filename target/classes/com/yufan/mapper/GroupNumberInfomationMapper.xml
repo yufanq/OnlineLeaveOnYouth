@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yufan.dao.GroupNumberInfomationMapper">
+  <resultMap id="BaseResultMap" type="com.yufan.entity.GroupNumberInfomation">
+    <id column="k_gid" jdbcType="INTEGER" property="kGid" />
+    <result column="k_gstatus" jdbcType="TINYINT" property="kGstatus" />
+    <result column="k_glevel" jdbcType="TINYINT" property="kGlevel" />
+   	<association property="userInfomation" javaType="UserInfomation" >
+   		<id column="k_uid" jdbcType="INTEGER" property="kUid" />
+ 	   <result column="k_uname" jdbcType="VARCHAR" property="kUname" />
+ 	   <result column="k_ugender" jdbcType="BIT" property="kUgender" />
+ 	   <result column="k_ubirth" jdbcType="DATE" property="kUbirth" />
+  	  <result column="k_uage" jdbcType="INTEGER" property="kUage" />
+ 	   <result column="k_ustature" jdbcType="INTEGER" property="kUstature" />
+ 	   <result column="k_ustatus" jdbcType="TINYINT" property="kUstatus" />
+ 	   <result column="k_uaccount" jdbcType="VARCHAR" property="kUaccount" />
+ 	   <result column="k_upassword" jdbcType="VARCHAR" property="kUpassword" />
+   	</association>
+   	<association property="crowdInfomation" javaType="CrowdInfomation">
+   		<id column="k_croid" jdbcType="INTEGER" property="kCroid" />
+  	 	<result column="k_croname" jdbcType="VARCHAR" property="kCroname" />
+  		<result column="k_crocreatetime" jdbcType="DATE" property="kCrocreatetime" />
+  		<result column="k_crojurisdiction" jdbcType="TINYINT" property="kCrojurisdiction" />
+	    <result column="k_uid" jdbcType="INTEGER" property="kUid" />
+   	</association>
+  </resultMap>
+  <resultMap id="CrowdInfomationBaseResultMap" type="com.yufan.entity.CrowdInfomation">
+    <id column="k_croid" jdbcType="INTEGER" property="kCroid" />
+    <result column="k_croname" jdbcType="VARCHAR" property="kCroname" />
+    <result column="k_crocreatetime" jdbcType="DATE" property="kCrocreatetime" />
+    <result column="k_crojurisdiction" jdbcType="TINYINT" property="kCrojurisdiction" />
+    <result column="k_uid" jdbcType="INTEGER" property="kUid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    k_gid, k_gstatus, k_glevel, k_uid, k_croid
+  </sql>
+  <select id="selectCrowdByuid" resultMap="CrowdInfomationBaseResultMap">
+  		select c.*
+  	from user_infomation u inner join group_number_infomation g on u.k_uid = g.k_uid
+  	inner join crowd_infomation c on c.k_croid = g.k_croid
+  	where  g.k_uid != #{uid} 
+  </select>
+  <select id="selectCrowdByCrowdId" resultMap="BaseResultMap">
+  	select u.*,g.*,c.*
+  	from user_infomation u inner join group_number_infomation g on u.k_uid = g.k_uid
+  	inner join crowd_infomation c on c.k_croid = g.k_croid
+  	where  g.k_croid = #{id}
+  </select>
+  <select id="selectCrowdByUidAndJid" resultMap="CrowdInfomationBaseResultMap">
+  	select c.*
+  	from user_infomation u inner join group_number_infomation g on u.k_uid = g.k_uid
+  	inner join crowd_infomation c on c.k_croid = g.k_croid
+  	where  g.k_uid = #{uid} and g.k_glevel = #{jid}
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from group_number_infomation
+    where k_gid = #{kGid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from group_number_infomation
+    where k_gid = #{kGid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yufan.entity.GroupNumberInfomation">
+    insert into group_number_infomation (k_gid, k_gstatus, k_glevel, 
+      k_uid, k_croid)
+    values (#{kGid,jdbcType=INTEGER}, #{kGstatus,jdbcType=TINYINT}, #{kGlevel,jdbcType=TINYINT}, 
+      #{userInfomation.kUid}, #{crowdInfomation.kCroid})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yufan.entity.GroupNumberInfomation">
+    insert into group_number_infomation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="kGid != null">
+        k_gid,
+      </if>
+      <if test="kGstatus != null">
+        k_gstatus,
+      </if>
+      <if test="kGlevel != null">
+        k_glevel,
+      </if>
+      <if test="kUid != null">
+        k_uid,
+      </if>
+      <if test="kCroid != null">
+        k_croid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="kGid != null">
+        #{kGid,jdbcType=INTEGER},
+      </if>
+      <if test="kGstatus != null">
+        #{kGstatus,jdbcType=TINYINT},
+      </if>
+      <if test="kGlevel != null">
+        #{kGlevel,jdbcType=TINYINT},
+      </if>
+      <if test="kUid != null">
+        #{userInfomation.kUid},
+      </if>
+      <if test="kCroid != null">
+        #{crowdInfomation.kCroid},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yufan.entity.GroupNumberInfomation">
+    update group_number_infomation
+    <set>
+      <if test="kGstatus != null">
+        k_gstatus = #{kGstatus,jdbcType=TINYINT},
+      </if>
+      <if test="kGlevel != null">
+        k_glevel = #{kGlevel,jdbcType=TINYINT},
+      </if>
+      <if test="kUid != null">
+        k_uid = #{kUid,jdbcType=INTEGER},
+      </if>
+      <if test="kCroid != null">
+        k_croid = #{kCroid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where k_gid = #{kGid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yufan.entity.GroupNumberInfomation">
+    update group_number_infomation
+    set k_gstatus = #{kGstatus,jdbcType=TINYINT},
+      k_glevel = #{kGlevel,jdbcType=TINYINT},
+      k_uid = #{kUid,jdbcType=INTEGER},
+      k_croid = #{kCroid,jdbcType=INTEGER}
+    where k_gid = #{kGid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yufan.dao.UserInfomationMapper">
+  <resultMap id="BaseResultMap" type="com.yufan.entity.UserInfomation">
+    <id column="k_uid" jdbcType="INTEGER" property="kUid" />
+    <result column="k_uname" jdbcType="VARCHAR" property="kUname" />
+    <result column="k_ugender" jdbcType="BIT" property="kUgender" />
+    <result column="k_ubirth" jdbcType="DATE" property="kUbirth" />
+    <result column="k_uage" jdbcType="INTEGER" property="kUage" />
+    <result column="k_ustature" jdbcType="INTEGER" property="kUstature" />
+    <result column="k_ustatus" jdbcType="TINYINT" property="kUstatus" />
+    <result column="k_uaccount" jdbcType="VARCHAR" property="kUaccount" />
+    <result column="k_upassword" jdbcType="VARCHAR" property="kUpassword" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    k_uid, k_uname, k_ugender, k_ubirth, k_uage, k_ustature, k_ustatus, k_uaccount, k_upassword
+  </sql>
+  <select id="selectUserInfomationByNameAndPassword" resultMap="BaseResultMap"> 
+     select 
+    <include refid="Base_Column_List" />
+    from user_infomation
+    where k_uaccount = #{kUaccount} and k_upassword = #{kUpassword}
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_infomation
+    where k_uid = #{kUid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user_infomation
+    where k_uid = #{kUid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yufan.entity.UserInfomation">
+    insert into user_infomation (k_uid, k_uname, k_ugender, 
+      k_ubirth, k_uage, k_ustature, 
+      k_ustatus, k_uaccount, k_upassword
+      )
+    values (#{kUid,jdbcType=INTEGER}, #{kUname,jdbcType=VARCHAR}, #{kUgender,jdbcType=BIT}, 
+      #{kUbirth,jdbcType=DATE}, #{kUage,jdbcType=INTEGER}, #{kUstature,jdbcType=INTEGER}, 
+      #{kUstatus,jdbcType=TINYINT}, #{kUaccount,jdbcType=VARCHAR}, #{kUpassword,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yufan.entity.UserInfomation">
+    insert into user_infomation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="kUid != null">
+        k_uid,
+      </if>
+      <if test="kUname != null">
+        k_uname,
+      </if>
+      <if test="kUgender != null">
+        k_ugender,
+      </if>
+      <if test="kUbirth != null">
+        k_ubirth,
+      </if>
+      <if test="kUage != null">
+        k_uage,
+      </if>
+      <if test="kUstature != null">
+        k_ustature,
+      </if>
+      <if test="kUstatus != null">
+        k_ustatus,
+      </if>
+      <if test="kUaccount != null">
+        k_uaccount,
+      </if>
+      <if test="kUpassword != null">
+        k_upassword,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="kUid != null">
+        #{kUid,jdbcType=INTEGER},
+      </if>
+      <if test="kUname != null">
+        #{kUname,jdbcType=VARCHAR},
+      </if>
+      <if test="kUgender != null">
+        #{kUgender,jdbcType=BIT},
+      </if>
+      <if test="kUbirth != null">
+        #{kUbirth,jdbcType=DATE},
+      </if>
+      <if test="kUage != null">
+        #{kUage,jdbcType=INTEGER},
+      </if>
+      <if test="kUstature != null">
+        #{kUstature,jdbcType=INTEGER},
+      </if>
+      <if test="kUstatus != null">
+        #{kUstatus,jdbcType=TINYINT},
+      </if>
+      <if test="kUaccount != null">
+        #{kUaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="kUpassword != null">
+        #{kUpassword,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yufan.entity.UserInfomation">
+    update user_infomation
+    <set>
+      <if test="kUname != null">
+        k_uname = #{kUname,jdbcType=VARCHAR},
+      </if>
+      <if test="kUgender != null">
+        k_ugender = #{kUgender,jdbcType=BIT},
+      </if>
+      <if test="kUbirth != null">
+        k_ubirth = #{kUbirth,jdbcType=DATE},
+      </if>
+      <if test="kUage != null">
+        k_uage = #{kUage,jdbcType=INTEGER},
+      </if>
+      <if test="kUstature != null">
+        k_ustature = #{kUstature,jdbcType=INTEGER},
+      </if>
+      <if test="kUstatus != null">
+        k_ustatus = #{kUstatus,jdbcType=TINYINT},
+      </if>
+      <if test="kUaccount != null">
+        k_uaccount = #{kUaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="kUpassword != null">
+        k_upassword = #{kUpassword,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where k_uid = #{kUid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yufan.entity.UserInfomation">
+    update user_infomation
+    set k_uname = #{kUname,jdbcType=VARCHAR},
+      k_ugender = #{kUgender,jdbcType=BIT},
+      k_ubirth = #{kUbirth,jdbcType=DATE},
+      k_uage = #{kUage,jdbcType=INTEGER},
+      k_ustature = #{kUstature,jdbcType=INTEGER},
+      k_ustatus = #{kUstatus,jdbcType=TINYINT},
+      k_uaccount = #{kUaccount,jdbcType=VARCHAR},
+      k_upassword = #{kUpassword,jdbcType=VARCHAR}
+    where k_uid = #{kUid,jdbcType=INTEGER}
+  </update>
+</mapper>

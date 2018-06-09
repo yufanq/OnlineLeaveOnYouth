@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yufan.dao.EmployeeInfomationMapper">
+  <resultMap id="BaseResultMap" type="com.yufan.entity.EmployeeInfomation">
+    <id column="k_eid" jdbcType="INTEGER" property="kEid" />
+    <result column="k_edepartment" jdbcType="VARCHAR" property="kEdepartment" />
+    <result column="k_eposition" jdbcType="VARCHAR" property="kEposition" />
+    <result column="k_epay" jdbcType="VARCHAR" property="kEpay" />
+    <result column="k_uid" jdbcType="INTEGER" property="kUid" />
+    <result column="k_comid" jdbcType="INTEGER" property="kComid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    k_eid, k_edepartment, k_eposition, k_epay, k_uid, k_comid
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from employee_infomation
+    where k_eid = #{kEid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from employee_infomation
+    where k_eid = #{kEid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yufan.entity.EmployeeInfomation">
+    insert into employee_infomation (k_eid, k_edepartment, k_eposition, 
+      k_epay, k_uid, k_comid
+      )
+    values (#{kEid,jdbcType=INTEGER}, #{kEdepartment,jdbcType=VARCHAR}, #{kEposition,jdbcType=VARCHAR}, 
+      #{kEpay,jdbcType=VARCHAR}, #{kUid,jdbcType=INTEGER}, #{kComid,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yufan.entity.EmployeeInfomation">
+    insert into employee_infomation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="kEid != null">
+        k_eid,
+      </if>
+      <if test="kEdepartment != null">
+        k_edepartment,
+      </if>
+      <if test="kEposition != null">
+        k_eposition,
+      </if>
+      <if test="kEpay != null">
+        k_epay,
+      </if>
+      <if test="kUid != null">
+        k_uid,
+      </if>
+      <if test="kComid != null">
+        k_comid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="kEid != null">
+        #{kEid,jdbcType=INTEGER},
+      </if>
+      <if test="kEdepartment != null">
+        #{kEdepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="kEposition != null">
+        #{kEposition,jdbcType=VARCHAR},
+      </if>
+      <if test="kEpay != null">
+        #{kEpay,jdbcType=VARCHAR},
+      </if>
+      <if test="kUid != null">
+        #{kUid,jdbcType=INTEGER},
+      </if>
+      <if test="kComid != null">
+        #{kComid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yufan.entity.EmployeeInfomation">
+    update employee_infomation
+    <set>
+      <if test="kEdepartment != null">
+        k_edepartment = #{kEdepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="kEposition != null">
+        k_eposition = #{kEposition,jdbcType=VARCHAR},
+      </if>
+      <if test="kEpay != null">
+        k_epay = #{kEpay,jdbcType=VARCHAR},
+      </if>
+      <if test="kUid != null">
+        k_uid = #{kUid,jdbcType=INTEGER},
+      </if>
+      <if test="kComid != null">
+        k_comid = #{kComid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where k_eid = #{kEid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yufan.entity.EmployeeInfomation">
+    update employee_infomation
+    set k_edepartment = #{kEdepartment,jdbcType=VARCHAR},
+      k_eposition = #{kEposition,jdbcType=VARCHAR},
+      k_epay = #{kEpay,jdbcType=VARCHAR},
+      k_uid = #{kUid,jdbcType=INTEGER},
+      k_comid = #{kComid,jdbcType=INTEGER}
+    where k_eid = #{kEid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yufan.dao.CompanyInfomationMapper">
+  <resultMap id="BaseResultMap" type="com.yufan.entity.CompanyInfomation">
+    <id column="k_comid" jdbcType="INTEGER" property="kComid" />
+    <result column="k_comprovince" jdbcType="VARCHAR" property="kComprovince" />
+    <result column="k_comcity" jdbcType="VARCHAR" property="kComcity" />
+    <result column="k_comname" jdbcType="VARCHAR" property="kComname" />
+    <result column="k_comaddress" jdbcType="VARCHAR" property="kComaddress" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    k_comid, k_comprovince, k_comcity, k_comname, k_comaddress
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from company_infomation
+    where k_comid = #{kComid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from company_infomation
+    where k_comid = #{kComid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yufan.entity.CompanyInfomation">
+    insert into company_infomation (k_comid, k_comprovince, k_comcity, 
+      k_comname, k_comaddress)
+    values (#{kComid,jdbcType=INTEGER}, #{kComprovince,jdbcType=VARCHAR}, #{kComcity,jdbcType=VARCHAR}, 
+      #{kComname,jdbcType=VARCHAR}, #{kComaddress,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yufan.entity.CompanyInfomation">
+    insert into company_infomation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="kComid != null">
+        k_comid,
+      </if>
+      <if test="kComprovince != null">
+        k_comprovince,
+      </if>
+      <if test="kComcity != null">
+        k_comcity,
+      </if>
+      <if test="kComname != null">
+        k_comname,
+      </if>
+      <if test="kComaddress != null">
+        k_comaddress,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="kComid != null">
+        #{kComid,jdbcType=INTEGER},
+      </if>
+      <if test="kComprovince != null">
+        #{kComprovince,jdbcType=VARCHAR},
+      </if>
+      <if test="kComcity != null">
+        #{kComcity,jdbcType=VARCHAR},
+      </if>
+      <if test="kComname != null">
+        #{kComname,jdbcType=VARCHAR},
+      </if>
+      <if test="kComaddress != null">
+        #{kComaddress,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yufan.entity.CompanyInfomation">
+    update company_infomation
+    <set>
+      <if test="kComprovince != null">
+        k_comprovince = #{kComprovince,jdbcType=VARCHAR},
+      </if>
+      <if test="kComcity != null">
+        k_comcity = #{kComcity,jdbcType=VARCHAR},
+      </if>
+      <if test="kComname != null">
+        k_comname = #{kComname,jdbcType=VARCHAR},
+      </if>
+      <if test="kComaddress != null">
+        k_comaddress = #{kComaddress,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where k_comid = #{kComid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yufan.entity.CompanyInfomation">
+    update company_infomation
+    set k_comprovince = #{kComprovince,jdbcType=VARCHAR},
+      k_comcity = #{kComcity,jdbcType=VARCHAR},
+      k_comname = #{kComname,jdbcType=VARCHAR},
+      k_comaddress = #{kComaddress,jdbcType=VARCHAR}
+    where k_comid = #{kComid,jdbcType=INTEGER}
+  </update>
+</mapper>

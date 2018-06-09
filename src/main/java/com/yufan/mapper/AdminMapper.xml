@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yufan.dao.AdminMapper">
+  <resultMap id="BaseResultMap" type="com.yufan.entity.Admin">
+    <id column="k_aid" jdbcType="INTEGER" property="kAid" />
+    <result column="k_account" jdbcType="VARCHAR" property="kAccount" />
+    <result column="k_password" jdbcType="VARCHAR" property="kPassword" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    k_aid, k_account, k_password
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from admin
+    where k_aid = #{kAid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from admin
+    where k_aid = #{kAid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yufan.entity.Admin">
+    insert into admin (k_aid, k_account, k_password
+      )
+    values (#{kAid,jdbcType=INTEGER}, #{kAccount,jdbcType=VARCHAR}, #{kPassword,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yufan.entity.Admin">
+    insert into admin
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="kAid != null">
+        k_aid,
+      </if>
+      <if test="kAccount != null">
+        k_account,
+      </if>
+      <if test="kPassword != null">
+        k_password,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="kAid != null">
+        #{kAid,jdbcType=INTEGER},
+      </if>
+      <if test="kAccount != null">
+        #{kAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="kPassword != null">
+        #{kPassword,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yufan.entity.Admin">
+    update admin
+    <set>
+      <if test="kAccount != null">
+        k_account = #{kAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="kPassword != null">
+        k_password = #{kPassword,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where k_aid = #{kAid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yufan.entity.Admin">
+    update admin
+    set k_account = #{kAccount,jdbcType=VARCHAR},
+      k_password = #{kPassword,jdbcType=VARCHAR}
+    where k_aid = #{kAid,jdbcType=INTEGER}
+  </update>
+</mapper>

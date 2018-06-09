@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yufan.dao.ContactMapper">
+  <resultMap id="BaseResultMap" type="com.yufan.entity.Contact">
+    <id column="k_conid" jdbcType="INTEGER" property="kConid" />
+    <result column="k_concellphonenumber" jdbcType="VARCHAR" property="kConcellphonenumber" />
+    <result column="k_conemail" jdbcType="VARCHAR" property="kConemail" />
+    <result column="k_conqqnumber" jdbcType="VARCHAR" property="kConqqnumber" />
+    <result column="k_conwecharid" jdbcType="VARCHAR" property="kConwecharid" />
+    <result column="k_uid" jdbcType="INTEGER" property="kUid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    k_conid, k_concellphonenumber, k_conemail, k_conqqnumber, k_conwecharid, k_uid
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from contact
+    where k_conid = #{kConid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from contact
+    where k_conid = #{kConid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yufan.entity.Contact">
+    insert into contact (k_conid, k_concellphonenumber, k_conemail, 
+      k_conqqnumber, k_conwecharid, k_uid
+      )
+    values (#{kConid,jdbcType=INTEGER}, #{kConcellphonenumber,jdbcType=VARCHAR}, #{kConemail,jdbcType=VARCHAR}, 
+      #{kConqqnumber,jdbcType=VARCHAR}, #{kConwecharid,jdbcType=VARCHAR}, #{kUid,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yufan.entity.Contact">
+    insert into contact
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="kConid != null">
+        k_conid,
+      </if>
+      <if test="kConcellphonenumber != null">
+        k_concellphonenumber,
+      </if>
+      <if test="kConemail != null">
+        k_conemail,
+      </if>
+      <if test="kConqqnumber != null">
+        k_conqqnumber,
+      </if>
+      <if test="kConwecharid != null">
+        k_conwecharid,
+      </if>
+      <if test="kUid != null">
+        k_uid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="kConid != null">
+        #{kConid,jdbcType=INTEGER},
+      </if>
+      <if test="kConcellphonenumber != null">
+        #{kConcellphonenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="kConemail != null">
+        #{kConemail,jdbcType=VARCHAR},
+      </if>
+      <if test="kConqqnumber != null">
+        #{kConqqnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="kConwecharid != null">
+        #{kConwecharid,jdbcType=VARCHAR},
+      </if>
+      <if test="kUid != null">
+        #{kUid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yufan.entity.Contact">
+    update contact
+    <set>
+      <if test="kConcellphonenumber != null">
+        k_concellphonenumber = #{kConcellphonenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="kConemail != null">
+        k_conemail = #{kConemail,jdbcType=VARCHAR},
+      </if>
+      <if test="kConqqnumber != null">
+        k_conqqnumber = #{kConqqnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="kConwecharid != null">
+        k_conwecharid = #{kConwecharid,jdbcType=VARCHAR},
+      </if>
+      <if test="kUid != null">
+        k_uid = #{kUid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where k_conid = #{kConid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yufan.entity.Contact">
+    update contact
+    set k_concellphonenumber = #{kConcellphonenumber,jdbcType=VARCHAR},
+      k_conemail = #{kConemail,jdbcType=VARCHAR},
+      k_conqqnumber = #{kConqqnumber,jdbcType=VARCHAR},
+      k_conwecharid = #{kConwecharid,jdbcType=VARCHAR},
+      k_uid = #{kUid,jdbcType=INTEGER}
+    where k_conid = #{kConid,jdbcType=INTEGER}
+  </update>
+</mapper>

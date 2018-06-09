@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yufan.dao.CrowdInfomationMapper">
+  <resultMap id="BaseResultMap" type="com.yufan.entity.CrowdInfomation">
+    <id column="k_croid" jdbcType="INTEGER" property="kCroid" />
+    <result column="k_croname" jdbcType="VARCHAR" property="kCroname" />
+    <result column="k_crocreatetime" jdbcType="DATE" property="kCrocreatetime" />
+    <result column="k_crojurisdiction" jdbcType="TINYINT" property="kCrojurisdiction" />
+    <result column="k_uid" jdbcType="INTEGER" property="kUid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    k_croid, k_croname, k_crocreatetime, k_crojurisdiction, k_uid
+  </sql>
+  <select id="selectByName" resultMap="BaseResultMap">
+ 	  select 
+    <include refid="Base_Column_List" />
+    from crowd_infomation
+    where k_croname = #{kCroname}
+  </select>
+  <select id="selectAllCrowd" resultMap="BaseResultMap">
+   select 
+    <include refid="Base_Column_List" />
+    from crowd_infomation
+  </select>
+  <select id="selectCrowdBYUid" resultMap="BaseResultMap">
+ 	 select 
+    <include refid="Base_Column_List" />
+    from crowd_infomation
+    where k_uid = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from crowd_infomation
+    where k_croid = #{kCroid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from crowd_infomation
+    where k_croid = #{kCroid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yufan.entity.CrowdInfomation">
+    insert into crowd_infomation (k_croid, k_croname, k_crocreatetime, 
+      k_crojurisdiction, k_uid)
+    values (#{kCroid,jdbcType=INTEGER}, #{kCroname,jdbcType=VARCHAR}, #{kCrocreatetime,jdbcType=DATE}, 
+      #{kCrojurisdiction,jdbcType=TINYINT}, #{kUid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yufan.entity.CrowdInfomation">
+    insert into crowd_infomation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="kCroid != null">
+        k_croid,
+      </if>
+      <if test="kCroname != null">
+        k_croname,
+      </if>
+      <if test="kCrocreatetime != null">
+        k_crocreatetime,
+      </if>
+      <if test="kCrojurisdiction != null">
+        k_crojurisdiction,
+      </if>
+      <if test="kUid != null">
+        k_uid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="kCroid != null">
+        #{kCroid,jdbcType=INTEGER},
+      </if>
+      <if test="kCroname != null">
+        #{kCroname,jdbcType=VARCHAR},
+      </if>
+      <if test="kCrocreatetime != null">
+        #{kCrocreatetime,jdbcType=DATE},
+      </if>
+      <if test="kCrojurisdiction != null">
+        #{kCrojurisdiction,jdbcType=TINYINT},
+      </if>
+      <if test="kUid != null">
+        #{kUid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yufan.entity.CrowdInfomation">
+    update crowd_infomation
+    <set>
+      <if test="kCroname != null">
+        k_croname = #{kCroname,jdbcType=VARCHAR},
+      </if>
+      <if test="kCrocreatetime != null">
+        k_crocreatetime = #{kCrocreatetime,jdbcType=DATE},
+      </if>
+      <if test="kCrojurisdiction != null">
+        k_crojurisdiction = #{kCrojurisdiction,jdbcType=TINYINT},
+      </if>
+      <if test="kUid != null">
+        k_uid = #{kUid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where k_croid = #{kCroid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yufan.entity.CrowdInfomation">
+    update crowd_infomation
+    set k_croname = #{kCroname,jdbcType=VARCHAR},
+      k_crocreatetime = #{kCrocreatetime,jdbcType=DATE},
+      k_crojurisdiction = #{kCrojurisdiction,jdbcType=TINYINT},
+      k_uid = #{kUid,jdbcType=INTEGER}
+    where k_croid = #{kCroid,jdbcType=INTEGER}
+  </update>
+</mapper>

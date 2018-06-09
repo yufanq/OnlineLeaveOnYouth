@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yufan.dao.SchoolInfomationMapper">
+  <resultMap id="BaseResultMap" type="com.yufan.entity.SchoolInfomation">
+    <id column="k_sid" jdbcType="INTEGER" property="kSid" />
+    <result column="k_sprovince" jdbcType="VARCHAR" property="kSprovince" />
+    <result column="k_scity" jdbcType="VARCHAR" property="kScity" />
+    <result column="k_sname" jdbcType="VARCHAR" property="kSname" />
+    <result column="k_saddress" jdbcType="VARCHAR" property="kSaddress" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    k_sid, k_sprovince, k_scity, k_sname, k_saddress
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from school_infomation
+    where k_sid = #{kSid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from school_infomation
+    where k_sid = #{kSid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yufan.entity.SchoolInfomation">
+    insert into school_infomation (k_sid, k_sprovince, k_scity, 
+      k_sname, k_saddress)
+    values (#{kSid,jdbcType=INTEGER}, #{kSprovince,jdbcType=VARCHAR}, #{kScity,jdbcType=VARCHAR}, 
+      #{kSname,jdbcType=VARCHAR}, #{kSaddress,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yufan.entity.SchoolInfomation">
+    insert into school_infomation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="kSid != null">
+        k_sid,
+      </if>
+      <if test="kSprovince != null">
+        k_sprovince,
+      </if>
+      <if test="kScity != null">
+        k_scity,
+      </if>
+      <if test="kSname != null">
+        k_sname,
+      </if>
+      <if test="kSaddress != null">
+        k_saddress,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="kSid != null">
+        #{kSid,jdbcType=INTEGER},
+      </if>
+      <if test="kSprovince != null">
+        #{kSprovince,jdbcType=VARCHAR},
+      </if>
+      <if test="kScity != null">
+        #{kScity,jdbcType=VARCHAR},
+      </if>
+      <if test="kSname != null">
+        #{kSname,jdbcType=VARCHAR},
+      </if>
+      <if test="kSaddress != null">
+        #{kSaddress,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yufan.entity.SchoolInfomation">
+    update school_infomation
+    <set>
+      <if test="kSprovince != null">
+        k_sprovince = #{kSprovince,jdbcType=VARCHAR},
+      </if>
+      <if test="kScity != null">
+        k_scity = #{kScity,jdbcType=VARCHAR},
+      </if>
+      <if test="kSname != null">
+        k_sname = #{kSname,jdbcType=VARCHAR},
+      </if>
+      <if test="kSaddress != null">
+        k_saddress = #{kSaddress,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where k_sid = #{kSid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yufan.entity.SchoolInfomation">
+    update school_infomation
+    set k_sprovince = #{kSprovince,jdbcType=VARCHAR},
+      k_scity = #{kScity,jdbcType=VARCHAR},
+      k_sname = #{kSname,jdbcType=VARCHAR},
+      k_saddress = #{kSaddress,jdbcType=VARCHAR}
+    where k_sid = #{kSid,jdbcType=INTEGER}
+  </update>
+</mapper>
