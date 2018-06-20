@@ -1,5 +1,7 @@
 package com.yufan.dao;
 
+import java.util.List;
+
 import com.yufan.entity.Commend;
 
 public interface CommendMapper {
@@ -14,4 +16,6 @@ public interface CommendMapper {
     int updateByPrimaryKeySelective(Commend record);
 
     int updateByPrimaryKey(Commend record);
+    
+    List<Commend> selectCommendByMid(Integer id);
 }

@@ -1,93 +1,119 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yufan.dao.CommendMapper">
-  <resultMap id="BaseResultMap" type="com.yufan.entity.Commend">
-    <id column="k_commid" jdbcType="INTEGER" property="kCommid" />
-    <result column="k_commcontent" jdbcType="VARCHAR" property="kCommcontent" />
-    <result column="k_commrelease" jdbcType="DATE" property="kCommrelease" />
-    <result column="k_uid" jdbcType="INTEGER" property="kUid" />
-    <result column="k_mid" jdbcType="INTEGER" property="kMid" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    k_commid, k_commcontent, k_commrelease, k_uid, k_mid
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from commend
-    where k_commid = #{kCommid,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from commend
-    where k_commid = #{kCommid,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.yufan.entity.Commend">
-    insert into commend (k_commid, k_commcontent, k_commrelease, 
-      k_uid, k_mid)
-    values (#{kCommid,jdbcType=INTEGER}, #{kCommcontent,jdbcType=VARCHAR}, #{kCommrelease,jdbcType=DATE}, 
-      #{kUid,jdbcType=INTEGER}, #{kMid,jdbcType=INTEGER})
-  </insert>
-  <insert id="insertSelective" parameterType="com.yufan.entity.Commend">
-    insert into commend
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="kCommid != null">
-        k_commid,
-      </if>
-      <if test="kCommcontent != null">
-        k_commcontent,
-      </if>
-      <if test="kCommrelease != null">
-        k_commrelease,
-      </if>
-      <if test="kUid != null">
-        k_uid,
-      </if>
-      <if test="kMid != null">
-        k_mid,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="kCommid != null">
-        #{kCommid,jdbcType=INTEGER},
-      </if>
-      <if test="kCommcontent != null">
-        #{kCommcontent,jdbcType=VARCHAR},
-      </if>
-      <if test="kCommrelease != null">
-        #{kCommrelease,jdbcType=DATE},
-      </if>
-      <if test="kUid != null">
-        #{kUid,jdbcType=INTEGER},
-      </if>
-      <if test="kMid != null">
-        #{kMid,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.yufan.entity.Commend">
-    update commend
-    <set>
-      <if test="kCommcontent != null">
-        k_commcontent = #{kCommcontent,jdbcType=VARCHAR},
-      </if>
-      <if test="kCommrelease != null">
-        k_commrelease = #{kCommrelease,jdbcType=DATE},
-      </if>
-      <if test="kUid != null">
-        k_uid = #{kUid,jdbcType=INTEGER},
-      </if>
-      <if test="kMid != null">
-        k_mid = #{kMid,jdbcType=INTEGER},
-      </if>
-    </set>
-    where k_commid = #{kCommid,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.yufan.entity.Commend">
-    update commend
-    set k_commcontent = #{kCommcontent,jdbcType=VARCHAR},
-      k_commrelease = #{kCommrelease,jdbcType=DATE},
-      k_uid = #{kUid,jdbcType=INTEGER},
-      k_mid = #{kMid,jdbcType=INTEGER}
-    where k_commid = #{kCommid,jdbcType=INTEGER}
-  </update>
+	<resultMap id="BaseResultMap" type="com.yufan.entity.Commend">
+		<id column="k_commid" jdbcType="INTEGER" property="kCommid" />
+		<result column="k_commcontent" jdbcType="VARCHAR" property="kCommcontent" />
+		<result column="k_commrelease" jdbcType="DATE" property="kCommrelease" />
+		<result column="k_mid" jdbcType="INTEGER" property="kMid" />
+		<association property="userInfomation" javaType="UserInfomation">
+			<id column="k_uid" jdbcType="INTEGER" property="kUid" />
+			<result column="k_uname" jdbcType="VARCHAR" property="kUname" />
+			<result column="k_ugender" jdbcType="BIT" property="kUgender" />
+			<result column="k_ubirth" jdbcType="DATE" property="kUbirth" />
+			<result column="k_uage" jdbcType="INTEGER" property="kUage" />
+			<result column="k_ustature" jdbcType="INTEGER" property="kUstature" />
+			<result column="k_ustatus" jdbcType="TINYINT" property="kUstatus" />
+			<result column="k_uaccount" jdbcType="VARCHAR" property="kUaccount" />
+			<result column="k_upassword" jdbcType="VARCHAR" property="kUpassword" />
+		</association>
+	</resultMap>
+	<sql id="Base_Column_List">
+		k_commid, k_commcontent, k_commrelease, k_mid
+	</sql>
+	<select id="selectCommendByMid" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+			c.*,u.*
+		from commend c,user_infomation u
+		where  c.k_uid = u.k_uid and  c.k_mid = #{id,jdbcType=INTEGER}
+	</select>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from commend
+		where k_commid = #{kCommid,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		commend
+		where k_commid = #{kCommid,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.yufan.entity.Commend">
+		insert into commend (k_commid,
+		k_commcontent, k_commrelease,
+		k_uid, k_mid)
+		values
+		(#{kCommid,jdbcType=INTEGER}, #{kCommcontent,jdbcType=VARCHAR},
+		#{kCommrelease,jdbcType=DATE},
+		#{userInfomation.kUid,jdbcType=INTEGER},
+		#{kMid,jdbcType=INTEGER})
+	</insert>
+	<insert id="insertSelective" parameterType="com.yufan.entity.Commend">
+		insert into commend
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="kCommid != null">
+				k_commid,
+			</if>
+			<if test="kCommcontent != null">
+				k_commcontent,
+			</if>
+			<if test="kCommrelease != null">
+				k_commrelease,
+			</if>
+			<if test="userInfomation != null">
+				k_uid,
+			</if>
+			<if test="kMid != null">
+				k_mid,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="kCommid != null">
+				#{kCommid,jdbcType=INTEGER},
+			</if>
+			<if test="kCommcontent != null">
+				#{kCommcontent,jdbcType=VARCHAR},
+			</if>
+			<if test="kCommrelease != null">
+				#{kCommrelease,jdbcType=DATE},
+			</if>
+			<if test="userInfomation != null">
+				#{userInfomation.kUid,jdbcType=INTEGER},
+			</if>
+			<if test="kMid != null">
+				#{kMid,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.yufan.entity.Commend">
+		update commend
+		<set>
+			<if test="kCommcontent != null">
+				k_commcontent = #{kCommcontent,jdbcType=VARCHAR},
+			</if>
+			<if test="kCommrelease != null">
+				k_commrelease = #{kCommrelease,jdbcType=DATE},
+			</if>
+			<if test="userInfomation != null">
+				k_uid = #{userInfomation.kUid,jdbcType=INTEGER},
+			</if>
+			<if test="kMid != null">
+				k_mid = #{kMid,jdbcType=INTEGER},
+			</if>
+		</set>
+		where k_commid = #{kCommid,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.yufan.entity.Commend">
+		update commend
+		set
+		k_commcontent = #{kCommcontent,jdbcType=VARCHAR},
+		k_commrelease =
+		#{kCommrelease,jdbcType=DATE},
+		k_uid = #{userInfomation.kUid,jdbcType=INTEGER},
+		k_mid =
+		#{kMid,jdbcType=INTEGER}
+		where k_commid = #{kCommid,jdbcType=INTEGER}
+	</update>
 </mapper>

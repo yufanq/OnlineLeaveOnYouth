@@ -38,7 +38,7 @@
   		select c.*
   	from user_infomation u inner join group_number_infomation g on u.k_uid = g.k_uid
   	inner join crowd_infomation c on c.k_croid = g.k_croid
-  	where  g.k_uid != #{uid} 
+  	where  g.k_uid = #{uid} 
   </select>
   <select id="selectCrowdByCrowdId" resultMap="BaseResultMap">
   	select u.*,g.*,c.*

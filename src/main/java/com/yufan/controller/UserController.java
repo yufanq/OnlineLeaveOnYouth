@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.yufan.entity.Contact;
 import com.yufan.entity.UserInfomation;
 import com.yufan.service.UserServiice;
 
@@ -26,7 +27,7 @@ public class UserController {
 			return "login";
 		}
 		session.setAttribute("user", login);
-		return "indexshow";
+		return "redirect:/activity/showActivity";
 	}
 	@RequestMapping(value="/regist" ,method = RequestMethod.POST)
 	public String regist(Model model,UserInfomation userInfomation){
@@ -41,5 +42,39 @@ public class UserController {
 	public String logOut(Model model,HttpSession session){
 		session.removeAttribute("user");
 		return "login";
+	}
+	
+	@RequestMapping(value="/showUserMessage",method=RequestMethod.GET)
+	public String showUserMessage(Model model,HttpSession session){
+		
+		UserInfomation userInfomation = (UserInfomation)session.getAttribute("user");
+		model.addAttribute("contact", userServiice.queryContactByUserid(userInfomation));
+		
+		return "userinfonation";
+	}
+	
+	@RequestMapping(value="/updateUsermessage",method=RequestMethod.GET)
+	public String updateUsermessage(Model model,HttpSession session){
+		
+		UserInfomation userInfomation = (UserInfomation)session.getAttribute("user");
+		model.addAttribute("contact", userServiice.queryContactByUserid(userInfomation));
+		return "userinfonationupdate";
+	}
+	@RequestMapping(value="/updateUsermessage",method=RequestMethod.POST)
+	public String updateUsermessage(Model model,UserInfomation userInfomation,HttpSession session){
+		userServiice.updateUserStatus(userInfomation);
+		session.setAttribute("user", userInfomation);
+		return "redirect:/user/showUserMessage";
+	}
+	@RequestMapping(value="/updateContactmessage",method=RequestMethod.POST)
+	public String updateContactmessage(Model model,Contact contact,HttpSession session){
+		UserInfomation userInfomation = (UserInfomation)session.getAttribute("user");
+		contact.setkUid(userInfomation.getkUid());
+		if(contact.getkConid() == null){
+			userServiice.createContact(contact);
+		}else{
+		userServiice.updateContact(contact);
+		}
+		return "redirect:/user/showUserMessage";
 	}
 }

@@ -9,7 +9,7 @@ public class Commend {
 
     private Date kCommrelease;
 
-    private Integer kUid;
+    private UserInfomation userInfomation;
 
     private Integer kMid;
 
@@ -37,15 +37,17 @@ public class Commend {
         this.kCommrelease = kCommrelease;
     }
 
-    public Integer getkUid() {
-        return kUid;
-    }
+   
 
-    public void setkUid(Integer kUid) {
-        this.kUid = kUid;
-    }
+    public UserInfomation getUserInfomation() {
+		return userInfomation;
+	}
 
-    public Integer getkMid() {
+	public void setUserInfomation(UserInfomation userInfomation) {
+		this.userInfomation = userInfomation;
+	}
+
+	public Integer getkMid() {
         return kMid;
     }
 
@@ -63,7 +65,8 @@ public class Commend {
 		result = prime * result
 				+ ((kCommrelease == null) ? 0 : kCommrelease.hashCode());
 		result = prime * result + ((kMid == null) ? 0 : kMid.hashCode());
-		result = prime * result + ((kUid == null) ? 0 : kUid.hashCode());
+		result = prime * result
+				+ ((userInfomation == null) ? 0 : userInfomation.hashCode());
 		return result;
 	}
 
@@ -96,10 +99,10 @@ public class Commend {
 				return false;
 		} else if (!kMid.equals(other.kMid))
 			return false;
-		if (kUid == null) {
-			if (other.kUid != null)
+		if (userInfomation == null) {
+			if (other.userInfomation != null)
 				return false;
-		} else if (!kUid.equals(other.kUid))
+		} else if (!userInfomation.equals(other.userInfomation))
 			return false;
 		return true;
 	}
@@ -107,8 +110,8 @@ public class Commend {
 	@Override
 	public String toString() {
 		return "Commend [kCommid=" + kCommid + ", kCommcontent=" + kCommcontent
-				+ ", kCommrelease=" + kCommrelease + ", kUid=" + kUid
-				+ ", kMid=" + kMid + "]";
+				+ ", kCommrelease=" + kCommrelease + ", userInfomation="
+				+ userInfomation + ", kMid=" + kMid + "]";
 	}
 
 }

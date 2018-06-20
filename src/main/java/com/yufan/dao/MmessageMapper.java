@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.jms.Message;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.yufan.entity.Mmessage;
 
 public interface MmessageMapper {
@@ -28,6 +30,17 @@ public interface MmessageMapper {
     * @throws
      */
     
-    List<Mmessage> selectMessageByCidAndMtype(Mmessage mmessage);
+    List<Mmessage> selectMessageByCidAndMtype(@Param("id") Integer id,@Param("type")Byte type);
+    /**
+     * 
+    * @Title: selectMessageByUidAndMtype  
+    * @Description:  根据用户id 跟 消息状态 查找信息
+    * @param @param id
+    * @param @param type
+    * @param @return    参数  
+    * @return List<Mmessage>    返回类型  
+    * @throws
+     */
+    List<Mmessage> selectMessageByUidAndMtype(@Param("id") Integer id,@Param("type")Byte type);
     
 }

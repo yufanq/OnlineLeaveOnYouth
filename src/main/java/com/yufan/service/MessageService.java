@@ -3,6 +3,7 @@ package com.yufan.service;
 import java.util.List;
 
 import com.yufan.entity.Mmessage;
+import com.yufan.entity.UserInfomation;
 
 /**
  * 
@@ -27,16 +28,44 @@ public interface MessageService {
 	Integer updateMessage(Mmessage mmessage);
 	
 	Integer deleteMessage(Integer id);
+
 	/**
 	 * 
-	* @Title: queryMeesageByCidAndMtype  
-	* @Description:   根据 群组id 和消息类型查询
-	* @param @param meMmessage
+	* @Title: queryJoinGroupMessage  
+	* @Description:   查找群组加入申请信息
+	* @param @param userInfomation
 	* @param @return    参数  
 	* @return List<Mmessage>    返回类型  
 	* @throws
 	 */
-	List<Mmessage> queryMeesageByCidAndMtype(Mmessage meMmessage);
-
+	List<Mmessage> queryJoinGroupMessage(UserInfomation userInfomation);
+	/**
+	 * 
+	* @Title: queryJoinActivityMessage  
+	* @Description:   查找活动邀请提示信息
+	* @param @param userInfomation
+	* @param @return    参数  
+	* @return List<Mmessage>    返回类型  
+	* @throws
+	 */
+	List<Mmessage> queryJoinActivityMessage(UserInfomation userInfomation);
+	
+	Mmessage queryMessageByid(Integer id);
+	
+	void dealWithMessage(Integer id,Integer flag);
+	
+	List<Mmessage> queryDealMessage(UserInfomation userInfomation);
+	/**
+	 * 
+	* @Title: queryActivityByCid  
+	* @Description:  通过群id 查找群活动
+	* @param @param id
+	* @param @return    参数  
+	* @return List<Mmessage>    返回类型  
+	* @throws
+	 */
+	List<Mmessage> queryActivityByCid(Integer id);
+	
+	List<Mmessage> queryAllUserJoinActivity(UserInfomation userInfomation);
 	
 }

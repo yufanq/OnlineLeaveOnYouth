@@ -87,9 +87,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 	<h4>${ user.kUname }</h4>
                 	 <span class="email">yu0214fan@gmail.com</span>
                     <ul>
-                    	<li><a href="${pageContext.request.contextPath}/editprofile.html">修改信息</a></li>
-                        <li><a href="${pageContext.request.contextPath}/accountsettings.html">个人设置</a></li>
-                        <li><a href="${pageContext.request.contextPath}/amanda/help.html">帮助</a></li>
+                    	<li><a href="${pageContext.request.contextPath}/user/updateUsermessage">修改信息</a></li>
+                        <li><a href="${pageContext.request.contextPath}/user/showUserMessage">个人信息</a></li>
                         <li><a href="${pageContext.request.contextPath}/user/logout">退出</a></li>
                     </ul>
                 </div><!--userdata-->
@@ -103,10 +102,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
     <div class="header">
     	<ul class="headermenu">
-        	<li><a href="${pageContext.request.contextPath}/indexshow.jsp"><span class="icon icon-flatscreen"></span>活动</a></li>
+        	<li><a href="${pageContext.request.contextPath}/activity/showActivity"><span class="icon icon-flatscreen"></span>活动</a></li>
             <li><a href="${pageContext.request.contextPath}/group"><span class="icon icon-pencil"></span>群组</a></li>
-            <li><a href="${pageContext.request.contextPath}/messagemanager.jsp"><span class="icon icon-message"></span>消息</a></li>
-            <li><a href="${pageContext.request.contextPath}/reports.html"><span class="icon icon-chart"></span>个人中心</a></li>
+            <li><a href="${pageContext.request.contextPath}/message"><span class="icon icon-message"></span>消息</a></li>
+            <li><a href="${pageContext.request.contextPath}/user/showUserMessage"><span class="icon icon-chart"></span>个人中心</a></li>
         </ul>
         
      <!--    <div class="headerwidget">

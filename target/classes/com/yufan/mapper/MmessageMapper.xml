@@ -9,16 +9,22 @@
     <result column="k_uid" jdbcType="INTEGER" property="kUid" />
     <result column="k_croid" jdbcType="INTEGER" property="kCroid" />
     <result column="k_mjuridiction" jdbcType="TINYINT" property="kMjuridiction" />
- 	<result column="k_mtype" jdbcType="TINYINT" property="kMtype"/>
+    <result column="k_mtype" jdbcType="TINYINT" property="kMtype" />
   </resultMap>
   <sql id="Base_Column_List">
-    k_mid, k_mname, k_mdate, k_mdeatail, k_uid, k_croid, k_mjuridiction,k_mtype
+    k_mid, k_mname, k_mdate, k_mdeatail, k_uid, k_croid, k_mjuridiction, k_mtype
   </sql>
+  <select id="selectMessageByUidAndMtype" resultMap="BaseResultMap">
+   select 
+    <include refid="Base_Column_List" />
+    from message
+    where k_uid = #{id} and k_mtype = #{type}
+  </select>
   <select id="selectMessageByCidAndMtype" resultMap="BaseResultMap">
    select 
     <include refid="Base_Column_List" />
     from message
-    where k_uid = #{kUid} and k_mtype = #{ kMtype }
+    where k_croid = #{id} and k_mtype = #{type}
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -33,10 +39,10 @@
   <insert id="insert" parameterType="com.yufan.entity.Mmessage">
     insert into message (k_mid, k_mname, k_mdate, 
       k_mdeatail, k_uid, k_croid, 
-      k_mjuridiction)
+      k_mjuridiction, k_mtype)
     values (#{kMid,jdbcType=INTEGER}, #{kMname,jdbcType=VARCHAR}, #{kMdate,jdbcType=DATE}, 
       #{kMdeatail,jdbcType=VARCHAR}, #{kUid,jdbcType=INTEGER}, #{kCroid,jdbcType=INTEGER}, 
-      #{kMjuridiction,jdbcType=TINYINT})
+      #{kMjuridiction,jdbcType=TINYINT}, #{kMtype,jdbcType=TINYINT})
   </insert>
   <insert id="insertSelective" parameterType="com.yufan.entity.Mmessage">
     insert into message
@@ -62,6 +68,9 @@
       <if test="kMjuridiction != null">
         k_mjuridiction,
       </if>
+      <if test="kMtype != null">
+        k_mtype,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="kMid != null">
@@ -84,6 +93,9 @@
       </if>
       <if test="kMjuridiction != null">
         #{kMjuridiction,jdbcType=TINYINT},
+      </if>
+      <if test="kMtype != null">
+        #{kMtype,jdbcType=TINYINT},
       </if>
     </trim>
   </insert>
@@ -108,6 +120,9 @@
       <if test="kMjuridiction != null">
         k_mjuridiction = #{kMjuridiction,jdbcType=TINYINT},
       </if>
+      <if test="kMtype != null">
+        k_mtype = #{kMtype,jdbcType=TINYINT},
+      </if>
     </set>
     where k_mid = #{kMid,jdbcType=INTEGER}
   </update>
@@ -118,7 +133,8 @@
       k_mdeatail = #{kMdeatail,jdbcType=VARCHAR},
       k_uid = #{kUid,jdbcType=INTEGER},
       k_croid = #{kCroid,jdbcType=INTEGER},
-      k_mjuridiction = #{kMjuridiction,jdbcType=TINYINT}
+      k_mjuridiction = #{kMjuridiction,jdbcType=TINYINT},
+      k_mtype = #{kMtype,jdbcType=TINYINT}
     where k_mid = #{kMid,jdbcType=INTEGER}
   </update>
 </mapper>

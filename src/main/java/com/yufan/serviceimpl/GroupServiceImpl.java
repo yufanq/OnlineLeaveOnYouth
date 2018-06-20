@@ -2,6 +2,7 @@ package com.yufan.serviceimpl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.function.UnaryOperator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -78,16 +79,28 @@ public class GroupServiceImpl implements GroupService{
 
 	@Override
 	public List<CrowdInfomation> selectCrowdByUid(Integer id) {
-		List<CrowdInfomation> selectCrowdByuid = groupNumberInfomationMapper.selectCrowdByuid(id);
+		List<CrowdInfomation> selectCrowdByuid = crowdInfomationMapper.selectCrowdBYUid(id);
 		return selectCrowdByuid;
 	}
 
 	@Override
 	public List<CrowdInfomation> selectCrowdByNoBelongToUser(
 			UserInfomation userInfomation) {
-		// 不属于用户的群组
+		// 用户加入的群组
 		List<CrowdInfomation> selectCrowdByuid = groupNumberInfomationMapper.selectCrowdByuid(userInfomation.getkUid());
-		return selectCrowdByuid;
+		//所以的组群
+		List<CrowdInfomation> selectAllCrowd = crowdInfomationMapper.selectAllCrowd();
+		selectAllCrowd.removeAll(selectCrowdByuid);
+		return selectAllCrowd;
 	}
+
+	@Override
+	public List<GroupNumberInfomation> selectMemberByGid(Integer id) {
+		List<GroupNumberInfomation> selectCrowdByCrowdId = groupNumberInfomationMapper.selectCrowdByCrowdId(id);
+		return selectCrowdByCrowdId;
+		
+	}
+	
+	
 
 }

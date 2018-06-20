@@ -15,6 +15,10 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/static/css/style.default.css"
 	type="text/css" />
+	
+<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/page/jquery-1.9.1.min.js"></script>
+
+<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/page/groupselect.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/static/js/plugins/jquery-1.7.min.js"></script>
 <script type="text/javascript"
@@ -64,7 +68,7 @@
                                     <div class="slide_content">
                                     	<h4><span>${c.kCroid }</span><a href="">${c.kCroname }</a></h4>
                                         <small>创建时间 <a href=""><strong></strong></a> ${c.kCrocreatetime }</small>
-                                        <p><button class="stdbtn btn_lime">申请</button> </p>
+                                        <p><button class="stdbtn btn_lime" onclick="createMe(this)">申请</button> </p>
                                     </div>
                                     </div>
                                   </li>

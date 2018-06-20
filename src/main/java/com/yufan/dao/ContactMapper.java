@@ -14,4 +14,6 @@ public interface ContactMapper {
     int updateByPrimaryKeySelective(Contact record);
 
     int updateByPrimaryKey(Contact record);
+    
+    Contact selectByUid(Integer id);
 }

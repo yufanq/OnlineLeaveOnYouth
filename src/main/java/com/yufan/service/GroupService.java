@@ -88,4 +88,14 @@ public interface GroupService {
 	* @throws
 	 */
 	List<CrowdInfomation> selectCrowdByNoBelongToUser(UserInfomation userInfomation);
+	/**
+	 * 
+	* @Title: selectMemberByGid  
+	* @Description:  根据群id查找 组内成员
+	* @param @param id
+	* @param @return    参数  
+	* @return List<GroupNumberInfomation>    返回类型  
+	* @throws
+	 */
+	List<GroupNumberInfomation> selectMemberByGid(Integer id);
 }

@@ -12,6 +12,12 @@
   <sql id="Base_Column_List">
     k_conid, k_concellphonenumber, k_conemail, k_conqqnumber, k_conwecharid, k_uid
   </sql>
+  <select id="selectByUid" parameterType="java.lang.Integer" resultMap="BaseResultMap" >
+ 	 select 
+    <include refid="Base_Column_List" />
+    from contact
+    where k_uid = #{id,jdbcType=INTEGER}
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

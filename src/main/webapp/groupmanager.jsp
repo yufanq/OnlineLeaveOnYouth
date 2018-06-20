@@ -47,7 +47,6 @@
 
 				<ul class="hornav">
 					<li class="current"><a href="#create">创建的群组</a></li>
-					<li><a href="#manager">管理的群组</a></li>
 					<li><a href="#join">参加的群组</a></li>
 					<li><a href="#add">创建群组</a></li>
 
@@ -69,7 +68,7 @@
 									<c:forEach items="${ createdGroup }" var="c">
 										<li class="user new">
 											<div class="msg">
-												<a href="">${ c.kCroname }</a>
+												<a href="${pageContext.request.contextPath}/group/${ c.kCroid}/showGroupMemberAndActivity">${ c.kCroname }</a>
 											</div>
 										</li>
 									</c:forEach>
@@ -97,7 +96,7 @@
 									<c:forEach items="${ managerGroup }" var="m">
 										<li class="user new">
 											<div class="msg">
-												<a href="">${ m.kCroname }</a>
+												<a href="${pageContext.request.contextPath}/group/${ m.kCroid}/showGroupMemberAndActivity">${ m.kCroname }</a>
 											</div>
 										</li>
 									</c:forEach>
@@ -120,7 +119,7 @@
 									<c:forEach items="${ joinGroup }" var="j">
 										<li class="user new">
 											<div class="msg">
-												<a href="">${ j.kCroname }</a>
+												<a href="${pageContext.request.contextPath}/group/${ j.kCroid}/showGroupMemberAndActivity">${ j.kCroname }</a>
 											</div>
 										</li>
 									</c:forEach>

@@ -60,7 +60,7 @@
       </bean>   
    <!--    <bean  class="com.yufan.interceptor.LoginInterceptor"></bean>
     -->    
-      
+      <bean class="com.yufan.interceptor.LoginInterceptor"></bean>
       
                          
                            

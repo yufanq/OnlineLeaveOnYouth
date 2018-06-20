@@ -1,5 +1,6 @@
 package com.yufan.service;
 
+import com.yufan.entity.Contact;
 import com.yufan.entity.UserInfomation;
 
 /**
@@ -33,4 +34,10 @@ public interface UserServiice {
 	Integer createUser(UserInfomation userInfomation);
 	
 	Integer updateUserStatus(UserInfomation userInfomation);
+	
+	Contact queryContactByUserid(UserInfomation userInfomation);
+	
+	Integer updateContact(Contact contact);
+	
+	Integer createContact(Contact contact);
 }
